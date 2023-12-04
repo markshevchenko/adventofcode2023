@@ -8,7 +8,13 @@
     <ItemGroup>
         <Compile Include="Utils.fs" />
         <Compile Include="Problem01.fs" />
+        <Compile Include="Problem02.fs" />
+        <Compile Include="Problem03.fs" />
         <Compile Include="Program.fs" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="FParsec" Version="1.1.1" />
     </ItemGroup>
 
 </Project>
