@@ -1,6 +1,7 @@
 ﻿module Problem02
 
 open FParsec
+open Utils
 
 type Cube =
     | Red
@@ -26,11 +27,6 @@ let pgame = skipString "Game" >>. spaces >>. pint32
         .>> pchar ':' .>> spaces .>>. psubsets |>> Game.fromTuple
         
         
-let toOption = function
-    | Success (result, _, _) -> Some result
-    | Failure (_, _, _) -> None
-    
-    
 let is_valid_cube (count, cube) =
     match cube with
     | Red -> count <= 12
@@ -41,7 +37,7 @@ let is_valid_cube (count, cube) =
 let solve_a lines =
     lines
     |> Seq.map (run pgame)
-    |> Seq.choose toOption
+    |> Seq.choose Option.fromParseResult
     |> Seq.filter (fun game -> game.subsets |> List.forall (List.forall is_valid_cube))
     |> Seq.map (fun game -> game.id)
     |> Seq.sum
@@ -58,6 +54,6 @@ let power (cubes: (int * Cube) list list) =
 let solve_b lines =
     lines
     |> Seq.map (run pgame)
-    |> Seq.choose toOption
+    |> Seq.choose Option.fromParseResult
     |> Seq.map (fun game -> power game.subsets)
     |> Seq.sum

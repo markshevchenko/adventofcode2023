@@ -25,7 +25,7 @@ let ``solve_a_with_sample_returns_4261`` () =
 
 
 [<Fact>]
-let ``solve_b_with_sample_return_467835`` () =
+let ``solve_b_with_sample_returns_467835`` () =
     let actual = solve_b sample
     
     Assert.Equal(467835, actual)
