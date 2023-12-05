@@ -6,7 +6,7 @@ open FParsec
 module Option =
     let fromParseResult = function
         | Success (result, _, _) -> Some result
-        | Failure (_, _, _) -> None
+        | Failure _ -> None
 
 
 module Seq =
@@ -16,3 +16,9 @@ module Seq =
             yield line
             line <- text_reader.ReadLine ()
     }
+    
+type LinesReader(lines: string seq) =
+    inherit TextReader()
+    override this.Close () = ()
+    
+    
