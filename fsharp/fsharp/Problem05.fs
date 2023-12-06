@@ -24,10 +24,6 @@ type Interval =
 let pseeds = skipString "seeds: " >>. many (puint32 .>> spaces)
 let pinterval = pipe3 (puint32 .>> spaces) (puint32 .>> spaces) (puint32 .>> spaces) Interval.fromTuple
 
-let unwrap = function
-    | Success (result, _, _) -> result
-    | Failure _ -> failwith "Incorrect format"
-
 type Almanac =
     { seeds: uint32 seq
       intervals_seq: Interval seq seq }

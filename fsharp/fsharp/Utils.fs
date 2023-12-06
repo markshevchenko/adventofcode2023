@@ -16,3 +16,9 @@ module Seq =
             yield line
             line <- text_reader.ReadLine ()
     }
+
+
+let unwrap = function
+    | Success (result, _, _) -> result
+    | Failure _ -> failwith "Incorrect format"
+
