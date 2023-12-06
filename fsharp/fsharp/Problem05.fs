@@ -1,6 +1,8 @@
 ﻿module Problem05
 
+open System
 open System.Collections.Generic
+open System.IO
 open FParsec
 open Utils
 
@@ -30,26 +32,43 @@ type Almanac =
     { seeds: uint32 seq
       intervals_seq: Interval seq seq }
     
-    static member fromLines lines =
-        use reader = new LinesReader(lines)
+    static member fromLines (lines: string seq) =
+        use reader = new StringReader(lines |> String.concat Environment.NewLine)
         let seeds = run pseeds (reader.ReadLine()) |> unwrap
         reader.ReadLine() |> ignore
-        reader.ReadLine() |> ignore
         
-        let intervals_seq = seq {
-            let mutable line = reader.ReadLine()
+        let mutable intervals_seq = List<Interval seq>();
+        let mutable line = reader.ReadLine()
+        line <- reader.ReadLine()
+        
+        while line <> null do
             let mutable intervals = List<Interval>()
             while line <> null && line <> "" do
-                intervals.Add(run pinterval line |> unwrap)
+                let interval = run pinterval line |> unwrap
+                intervals.Add(interval)
                 line <- reader.ReadLine()
                 
-            yield intervals :> Interval seq
-        }
+            if line = "" then
+                line <- reader.ReadLine()
+                line <- reader.ReadLine()
+                
+            intervals_seq.Add(intervals)
         
         { seeds =  seeds; intervals_seq = intervals_seq }
 
+let convert value (intervals: Interval seq) =
+   intervals
+   |> Seq.choose (fun interval -> interval.convert value)
+   |> Seq.tryHead
+   |> Option.defaultValue value
+   
+let convert_all value intervals_seq =
+   intervals_seq |> Seq.fold convert value 
+
 let solve_a lines =
     let almanac = Almanac.fromLines lines
-    0
+    almanac.seeds
+    |> Seq.map (fun seed -> convert_all seed almanac.intervals_seq)
+    |> Seq.min
 
 let solve_b lines = 0

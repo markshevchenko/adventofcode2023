@@ -16,9 +16,3 @@ module Seq =
             yield line
             line <- text_reader.ReadLine ()
     }
-    
-type LinesReader(lines: string seq) =
-    inherit TextReader()
-    override this.Close () = ()
-    
-    

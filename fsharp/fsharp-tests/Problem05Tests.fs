@@ -52,7 +52,7 @@ let ``interval (50, 98, 2) converts 98 to Some 50, 99 to Some 51, 97 to None and
 let ``solve_a_with_sample_returns_35`` () =
     let actual = solve_a sample
     
-    Assert.Equal(35, actual)
+    Assert.Equal(35u, actual)
 
 
 [<Fact>]
