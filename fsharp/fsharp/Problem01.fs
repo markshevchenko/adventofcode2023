@@ -4,8 +4,8 @@ open System
 open System.Text.RegularExpressions
 
 let get_number line =
-    let first_digit = line |> Seq.find Char.IsDigit |> int
-    let last_digit = line |> Seq.findBack Char.IsDigit |> int
+    let first_digit = line |> Seq.find Char.IsDigit |> string |> int
+    let last_digit = line |> Seq.findBack Char.IsDigit |> string |> int
     
     10 * first_digit + last_digit
 
