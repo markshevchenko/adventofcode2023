@@ -1,4 +1,6 @@
-﻿open System
+﻿module Program
+
+open System
 open Utils
 
 let arg = Environment.GetCommandLineArgs ()
@@ -19,9 +21,11 @@ match arg with
 | Some "6a" -> input_lines |> Problem06.solve_a |> printfn "%d"
 | Some "6b" -> input_lines |> Problem06.solve_b |> printfn "%d"
 | Some "7a" -> input_lines |> Problem07.solve_a |> printfn "%d"
-| Some "7b" -> input_lines |> Problem07.solve_b |> printfn "%d"
+// | Some "7b" -> input_lines |> Problem07.solve_b |> printfn "%d"
+| Some "8a" -> input_lines |> Problem08.solve_a |> printfn "%d"
+| Some "8b" -> input_lines |> Problem08.solve_b |> printfn "%d"
 | _ -> printfn "Advent of Code 2023 (https://adventofcode.com)"
        printfn "Run: adventofcode2023 problem"
-       printfn "     problem is one of 1a-7a"
-       printfn "                       1b-4b, 6b-7b"
+       printfn "     problem is one of 1a-8a"
+       printfn "                       1b-4b, 6b, 8b"
        printfn "The utility reads input from stdin and prints result to stdout."
